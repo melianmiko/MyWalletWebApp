@@ -26,7 +26,8 @@ function InputButton(props: InputKeyboardProps & {liter: string|number, row: str
         <Button style={{
                     gridColumn: props.col,
                     gridRow: props.row,
-                    fontSize: 48,
+                    height: props.rowHeight,
+                    fontSize: 40,
                     fontWeight: 300
                 }}
                 onClick={onClick}
@@ -40,7 +41,7 @@ function InputButton(props: InputKeyboardProps & {liter: string|number, row: str
 function EnterButton(props: InputKeyboardProps) {
     return (
         <Button style={{
-                    fontSize: 36,
+                    fontSize: 40,
                     fontWeight: 300,
                     gridRow: "2 / 5",
                     gridColumn: 4,
@@ -64,7 +65,8 @@ function BackspaceButton(props: InputKeyboardProps) {
 
     return (
         <Button style={{
-            fontSize: 48,
+            fontSize: 40,
+            height: props.rowHeight,
             fontWeight: 300,
             gridRow: 1,
             gridColumn: 4,
@@ -79,7 +81,7 @@ function BackspaceButton(props: InputKeyboardProps) {
 
 export function InputKeyboard(userProps: Partial<InputKeyboardProps>) {
     const props: InputKeyboardProps = {
-        rowHeight: 80,
+        rowHeight: 70,
         value: "",
         onValueChange: console.log,
         onEnterPress: console.log,
@@ -90,8 +92,9 @@ export function InputKeyboard(userProps: Partial<InputKeyboardProps>) {
         <div style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
-            gridAutoRows: `minmax(${props.rowHeight}px, auto)`,
-            gap: 4
+            gridAutoRows: `${props.rowHeight}px)`,
+            gap: 4,
+            margin: 4,
         }}>
             <InputButton row={1} col={1} liter={7} {...props} />
             <InputButton row={1} col={2} liter={8} {...props} />

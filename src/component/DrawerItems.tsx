@@ -1,6 +1,5 @@
 import React from "react";
-import {Button} from "react-bootstrap";
-import {ButtonProps} from "react-bootstrap/Button";
+import {Button, ButtonProps} from "react-bootstrap";
 import {WalletContext} from "../context/WalletContext";
 import {AppPages} from "../Router";
 

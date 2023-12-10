@@ -3,6 +3,8 @@ export type DataModel = {
     finishDay?: string,
     balance?: number,
     todayBalance?: number,
+    lastOperation?: number,
+    lastOperationDate?: string,
     spentHistory?: {
         days: {[date: string]: number},
         months: {[date: string]: number},

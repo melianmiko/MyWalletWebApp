@@ -14,7 +14,14 @@ export function HomeScreenHeader(props: HomeScreenHeaderProps) {
     const balance = Math.max(0, wallet.getBalance() - props.pendingSpent);
 
     return (
-        <div style={{display: "flex", padding: 24, borderBottom: "thin rgba(255,255,255,0.1) solid"}}>
+        <div style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "0 16px",
+            height: 56,
+            borderBottom: "thin rgba(255,255,255,0.1) solid"
+        }}>
             <div style={{flex: 1}}>
                 Left days: {wallet.getDaysCount()}, money: {balance}
             </div>

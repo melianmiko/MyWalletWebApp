@@ -52,7 +52,7 @@ export class Wallet extends WalletFile {
         return DateString.fromDayString(this.data.finishDay);
     }
 
-    addSpendRecord(sum: number) {
+    addSpendRecord(sum: number, withUndo: boolean = true) {
         if(this.data.todayBalance === undefined || this.data.balance === undefined) return;
         if(this.data.spentHistory === undefined) this.initHistory();
 
@@ -61,6 +61,12 @@ export class Wallet extends WalletFile {
 
         if(this.data.spentHistory) {
             const todayString = DateString.toDayString(new Date());
+
+            if(withUndo) {
+                this.data.lastOperation = sum;
+                this.data.lastOperationDate = todayString;
+            }
+
             if(!this.data.spentHistory.days[todayString])
                 this.data.spentHistory.days[todayString] = 0;
             this.data.spentHistory.days[todayString] += sum;
@@ -73,6 +79,17 @@ export class Wallet extends WalletFile {
 
         this.compressData();
         this.save();
+    }
+
+    undoLastOperation() {
+        if(!this.data.lastOperation ||
+            this.data.lastOperationDate !== DateString.toDayString(new Date())) return;
+
+        const amount = -this.data.lastOperation;
+        delete this.data.lastOperationDate;
+        delete this.data.lastOperation;
+
+        this.addSpendRecord(amount, false);
     }
 
     compressData() {
@@ -123,5 +140,12 @@ export class Wallet extends WalletFile {
             output.push({date, sum: this.data.spentHistory.months[date]});
 
         return output;
+    }
+
+    getUndoAmount(): number {
+        console.log(this.data);
+        if(!this.data.lastOperation ||
+            this.data.lastOperationDate !== DateString.toDayString(new Date())) return 0;
+        return this.data.lastOperation
     }
 }

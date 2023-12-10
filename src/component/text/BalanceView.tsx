@@ -10,8 +10,9 @@ export function BalanceView(props: React.PropsWithChildren<BalanceViewProps>) {
         <p style={{
             textAlign: props.align,
             color: props.danger ? "#e57676" : "",
-            margin: "0",
-            fontSize: "4em"
+            margin: "0px",
+            fontSize: "3.5em",
+            lineHeight: "1.2em",
         }}>
             {props.children}
         </p>

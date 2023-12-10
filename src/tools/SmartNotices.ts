@@ -1,9 +1,9 @@
 export class SmartNotices {
     static getHomePageNotice(pendingSpentInt: number, todayBalance: number) {
         let notice = "Today's budget";
-        if(pendingSpentInt > 0) {
+        if(pendingSpentInt !== 0) {
             if(todayBalance > 0) {
-                notice = "Today's budget after this purchase";
+                notice = `Today's budget after this ${pendingSpentInt > 0 ? 'purchase' : 'income'}`;
             } else {
                 notice = "This spent will use total wallet, today's limit is out";
             }

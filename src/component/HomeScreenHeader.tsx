@@ -1,7 +1,8 @@
 import React from "react";
 import {WalletContext} from "../context/WalletContext";
-import {Button, Offcanvas} from "react-bootstrap";
+import {Button, CloseButton, Offcanvas} from "react-bootstrap";
 import {DrawerItems} from "./DrawerItems";
+import {Header} from "./Header";
 
 export type HomeScreenHeaderProps = {
     pendingSpent: number,
@@ -14,28 +15,26 @@ export function HomeScreenHeader(props: HomeScreenHeaderProps) {
     const balance = Math.max(0, wallet.getBalance() - props.pendingSpent);
 
     return (
-        <div style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "0 16px",
-            height: 56,
-            borderBottom: "thin rgba(255,255,255,0.1) solid"
-        }}>
+        <Header>
             <div style={{flex: 1}}>
                 Left days: {wallet.getDaysCount()}, money: {balance}
             </div>
             <Button size="sm" variant="secondary" onClick={() => setMenuOpen(true)}>
                 Menu
             </Button>
-            <Offcanvas placement="end" show={menuOpen} onHide={() => setMenuOpen(false)}>
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>I want...</Offcanvas.Title>
-                </Offcanvas.Header>
+            <Offcanvas placement="end"
+                       show={menuOpen}
+                       onHide={() => setMenuOpen(false)}>
+                <Header>
+                    <div style={{flex: 1}}>
+                        MyWallet
+                    </div>
+                    <CloseButton onClick={() => setMenuOpen(false)} />
+                </Header>
                 <Offcanvas.Body>
                     <DrawerItems />
                 </Offcanvas.Body>
             </Offcanvas>
-        </div>
+        </Header>
     )
 }
